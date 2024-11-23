@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teknikprogramsquiz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        header {
+            background: #0078d7;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        button {
+            background: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #005bb5;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Teknikprogramsquiz</h1>
+    </header>
+    <main>
+        <form id="quizForm">
+            <!-- Fråga 1 -->
+            <div class="question">
+                <p>1. Vad är lösningen till ekvationen 3x + 5 = 14?</p>
+                <input type="radio" name="q1" value="1"> x = 3<br>
+                <input type="radio" name="q1" value="2"> x = 4<br>
+                <input type="radio" name="q1" value="3"> x = 5<br>
+            </div>
+
+            <!-- Fråga 2 -->
+            <div class="question">
+                <p>2. Vilket av följande är ett programmeringsspråk?</p>
+                <input type="radio" name="q2" value="1"> HTML<br>
+                <input type="radio" name="q2" value="2"> Python<br>
+                <input type="radio" name="q2" value="3"> CSS<br>
+            </div>
+
+            <!-- Fråga 3 -->
+            <div class="question">
+                <p>3. Vad mäts elektrisk spänning i?</p>
+                <input type="radio" name="q3" value="1"> Ampere (A)<br>
+                <input type="radio" name="q3" value="2"> Ohm (Ω)<br>
+                <input type="radio" name="q3" value="3"> Volt (V)<br>
+            </div>
+
+            <!-- Fråga 4 -->
+            <div class="question">
+                <p>4. Vilket av följande är ett exempel på en enkel maskin?</p>
+                <input type="radio" name="q4" value="1"> En elektrisk motor<br>
+                <input type="radio" name="q4" value="2"> Ett lutande plan<br>
+                <input type="radio" name="q4" value="3"> En solpanel<br>
+            </div>
+
+            <!-- Fråga 5 -->
+            <div class="question">
+                <p>5. Vilket binärt tal motsvarar decimaltalet 5?</p>
+                <input type="radio" name="q5" value="1"> 100<br>
+                <input type="radio" name="q5" value="2"> 101<br>
+                <input type="radio" name="q5" value="3"> 110<br>
+            </div>
+
+            <button type="button" onclick="submitQuiz()">Skicka in</button>
+        </form>
+    </main>
+    <footer>
+        <p>© 2024 Teknikprogramsquiz</p>
+    </footer>
+
+    <script>
+        const correctAnswers = {
+            q1: "2", // x = 4
+            q2: "2", // Python
+            q3: "3", // Volt (V)
+            q4: "2", // Lutande plan
+            q5: "2"  // 101
+        };
+
+        function submitQuiz() {
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            let score = 0;
+            const totalQuestions = Object.keys(correctAnswers).length;
+
+            for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
+                if (formData.get(question) === correctAnswer) {
+                    score++;
+                }
+            }
+
+            // Skapa resultat-sidan
+            const resultPage = `
+                <header>
+                    <h1>Resultat</h1>
+                </header>
+                <main>
+                    <div style="text-align: center; padding: 20px;">
+                        <h2>Du fick ${score} av ${totalQuestions} rätt!</h2>
+                        <p>${score === totalQuestions ? "Fantastiskt! Du klarade allt rätt!" : "Bra jobbat! Öva lite till för att få full pott."}</p>
+                        <button onclick="location.reload()">Gör quizet igen</button>
+                    </div>
+                </main>
+                <footer>
+                    <p>© 2024 Teknikprogramsquiz</p>
+                </footer>
+            `;
+
+            document.body.innerHTML = resultPage;
+        }
+    </script>
+</body>
+</html>
